@@ -3,6 +3,6 @@
 {% block header %}Каталог компьютеров Apple{% endblock %}
 {% block content %}
     {% for item in items %}
-        {% include 'app/card.html' %}
+        {% include 'app/card.html' with title=item.title text=item.text img=item.img%}
     {% endfor %}
 {% endblock %}
