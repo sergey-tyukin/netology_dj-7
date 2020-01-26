@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Угадай число{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Игра "Угадай число"</h1>
+            {{ errors }}
+            {% if status == 'new' %}
+                <h2>Создание новой игры</h2>
+                <form action="/create" method="post">
+                    {% csrf_token %}
+                    {{ create_form }}
+                    <input type='submit' value="Создать">
+                </form>
+            {% elif status == 'creator_status' %}
+                <p>Ваш статус: создатель игры</p>
+                <p>Число ещё не отгадано</p>
+            {% elif status == 'creator_result' %}
+                <p>Ваше число отгадали за {{ tries }} ходов</p>
+                <p> Для продолжения обновите страницу.</p>
+                <a href="/">Обновить</a>
+            {% elif status == 'end' %}
+                <p>{{ answer }}</p>
+                <p> Для продолжения обновите страницу.</p>
+                <a href="/">Обновить</a>
+            {% else %}
+                <p>Отгадайте число. Минимальное значение: {{ key_min }}, максимальное значение {{ key_max }}</p>
+                <p>Количетсво попыток {{ tries }}</p>
+                <p>{{ answer }}</p>
+                <form action="/check" method="post">
+                    {% csrf_token %}
+                    {{ input_form }}
+                    <input type='submit' value="Проверить">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
