@@ -12,9 +12,15 @@ class RoutesView(View):
         if route_name:
             route = Route.objects.filter(name=route_name).first()
             stations = Station.objects.filter(routes=route)
+            center = route.get_center()
         else:
             stations = []
+            center = ''
 
         context = {'routes': Route.objects.all(),
-                   'stations': stations}
+                   'stations': stations,
+                   'center': center}
+
+
+
         return render(request, 'routes/stations.html', context)

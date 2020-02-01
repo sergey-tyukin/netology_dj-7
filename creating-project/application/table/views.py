@@ -1,22 +1,11 @@
 import csv
 
 from django.shortcuts import render
-from django.conf import settings
 
 from .models import FilePath, PhonesFieldsFormat
 
 
 def table_view(request):
-
-    PhonesFieldsFormat.clear()
-    FilePath.clear()
-
-    FilePath.set_path(settings.CSV_FILENAME)
-
-    for num, field in enumerate(settings.COLUMNS):
-        PhonesFieldsFormat.objects.create(order=num,
-                                          name=field['name'],
-                                          width=field['width'])
 
     template = 'table.html'
     with open(FilePath.get_path(), 'rt') as csv_file:

@@ -51,6 +51,8 @@
         </div>
     </form>
     <br>
-    <div id="map" style="width: 800px; height: 600px;"></div>
+    {% if center %}
+        <div id="map" style="width: 800px; height: 600px;"></div>
+    {% endif %}
 </div>
 {% endblock %}
